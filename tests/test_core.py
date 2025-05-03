@@ -15,4 +15,4 @@ def test_add_negative_inputs():
         add(-1,  5)
     # Second arg negative
     with pytest.raises(ValueError):
-        add( 2, -7)
+        add(2, -7)
