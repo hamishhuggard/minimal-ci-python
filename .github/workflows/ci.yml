@@ -2,7 +2,7 @@ name: Lint ‑ Type‑check ‑ Test
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "*" ]
   pull_request:
 
 jobs:
