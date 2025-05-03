@@ -1,0 +1,36 @@
+name: Lint ‑ Type‑check ‑ Test
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.12", "3.11"]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5  # current major is v5.6.0 :contentReference[oaicite:0]{index=0}
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: "pip"
+
+      - name: Install deps
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e .[dev]
+
+      - name: Lint
+        run: flake8 src tests
+
+      - name: Type check
+        run: mypy src
+
+      - name: Run tests
+        run: pytest -q
